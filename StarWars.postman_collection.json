@@ -1,20 +1,39 @@
 {
 	"info": {
-		"_postman_id": "bad2b25d-7307-40de-9cd0-4ea8cda789a2",
+		"_postman_id": "9f880db7-4655-4534-b868-2184a84d1d5d",
 		"name": "StarWars",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "get_homeworld",
+			"name": "gethomeworld",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "d0f981dd-e3f5-44c5-a9bd-5fba25b5edf5",
+						"id": "0ce93502-9610-49dc-822c-eb23aeb280b8",
 						"exec": [
-							"var data = JSON.parse(responseBody);   \r",
-							"postman.setEnvironmentVariable(\"homeworld\", data.results[0].homeworld);"
+							"//console.log(JSON.parse(responsebody));",
+							"pm.environment.unset(\"homeworld\");",
+							"var data = JSON.parse(responseBody);",
+							"console.log(data);",
+							"postman.setEnvironmentVariable(\"homeworld\", data.results[0].homeworld);",
+							"//console.log(homeWorld);",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Name is Luke Skywalker\", function () {",
+							"    var peopleName = pm.response.json();",
+							"    pm.expect(peopleName.results[0].name).to.eql(\"Luke Skywalker\");",
+							"});",
+							"",
+							"pm.test(\"Name is Obi-Wan Kenobi\", function () {",
+							"    var peopleName = pm.response.json();",
+							"    pm.expect(peopleName.results[9].name).to.eql(\"Obi-Wan Kenobi\");",
+							"    ",
+							"    });",
+							"    "
 						],
 						"type": "text/javascript"
 					}
@@ -28,16 +47,54 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://swapi.co/api/people/",
-					"protocol": "http",
+					"raw": "https://swapi.co/api/people",
+					"protocol": "https",
 					"host": [
 						"swapi",
 						"co"
 					],
 					"path": [
 						"api",
-						"people",
-						""
+						"people"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "homeworldcall",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0ce93502-9610-49dc-822c-eb23aeb280b8",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Name is Tatooine\", function () {",
+							"    var planetName = pm.response.json();",
+							"    pm.expect(planetName.name).to.eql(\"Tatooine\");",
+							"});",
+							"",
+							"pm.environment.unset(\"homeworld\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{homeworld}}",
+					"host": [
+						"{{homeworld}}"
 					]
 				}
 			},
