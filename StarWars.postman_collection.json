@@ -1,0 +1,47 @@
+{
+	"info": {
+		"_postman_id": "bad2b25d-7307-40de-9cd0-4ea8cda789a2",
+		"name": "StarWars",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get_homeworld",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d0f981dd-e3f5-44c5-a9bd-5fba25b5edf5",
+						"exec": [
+							"var data = JSON.parse(responseBody);   \r",
+							"postman.setEnvironmentVariable(\"homeworld\", data.results[0].homeworld);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://swapi.co/api/people/",
+					"protocol": "http",
+					"host": [
+						"swapi",
+						"co"
+					],
+					"path": [
+						"api",
+						"people",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
